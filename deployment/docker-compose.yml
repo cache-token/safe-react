@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: safe_client
+    build:
+      context: ../
+      dockerfile: ./deployment/Dockerfile
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    networks:
+      - safe_network
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+networks:
+  safe_network:
+    driver: bridge
